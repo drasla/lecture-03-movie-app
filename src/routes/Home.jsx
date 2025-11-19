@@ -8,10 +8,9 @@ function Home() {
     useEffect(() => {
         const getMovies = async () => {
             const json = await fetch(
-                `https://nomad-movies.nomadcoders.workers.dev/movies`
+                `https://imdb.iamidiotareyoutoo.com/search?q=2025&lsn=1&v=1`
             ).then(res => res.json());
-            console.log(json.movies);
-            setMovies(json);
+            setMovies(json.description);
             setLoading(false);
         };
 
@@ -24,17 +23,15 @@ function Home() {
                 <h1>Loading...</h1>
             ) : (
                 <div>
-                    {movies.map((movie) => {
-                            console.log(movie);
-                            return <Movie
-                                key={movie.id}
-                                coverImg={movie.poster_path}
-                                title={movie.title}
-                                summary={movie.summary}
-                                genres={movie.genres}
-                            />
-                        }
-                    )}
+                    {movies.map((movie) => (
+                        <Movie
+                            key={movie["#IMDB_ID"]}
+                            id={movie["#IMDB_ID"]}
+                            coverImg={movie["#IMG_POSTER"]}
+                            title={movie["#TITLE"]}
+                        />
+
+                    ))}
                 </div>
             )}
         </div>
